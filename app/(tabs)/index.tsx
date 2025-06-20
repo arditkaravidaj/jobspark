@@ -10,6 +10,13 @@ import {
   Dimensions,
 } from 'react-native';
 import { router } from 'expo-router';
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withRepeat,
+  withTiming,
+  interpolate,
+} from 'react-native-reanimated';
 import { 
   Sparkles, 
   Target, 
@@ -62,6 +69,22 @@ const quickActions = [
 ];
 
 export default function DashboardScreen() {
+  const rotation = useSharedValue(0);
+
+  React.useEffect(() => {
+    rotation.value = withRepeat(
+      withTiming(360, { duration: 10000 }), // 10 seconds for one full rotation
+      -1, // infinite repeat
+      false
+    );
+  }, []);
+
+  const animatedStyle = useAnimatedStyle(() => {
+    return {
+      transform: [{ rotate: `${rotation.value}deg` }],
+    };
+  });
+
   const handleQuickAction = (route: string) => {
     router.push(route as any);
   };
@@ -76,9 +99,18 @@ export default function DashboardScreen() {
               <Text style={styles.greeting}>Good morning,</Text>
               <Text style={styles.name}>Welcome to JobSpark!</Text>
             </View>
-            <TouchableOpacity style={styles.notificationButton}>
-              <Bell size={24} color="#212529" />
-            </TouchableOpacity>
+            <View style={styles.headerRight}>
+              <TouchableOpacity style={styles.notificationButton}>
+                <Bell size={24} color="#212529" />
+              </TouchableOpacity>
+              <Animated.View style={[styles.spinningLogo, animatedStyle]}>
+                <Image
+                  source={require('../../assets/images/black_circle_360x360.png')}
+                  style={styles.logoImage}
+                  resizeMode="contain"
+                />
+              </Animated.View>
+            </View>
           </View>
         </View>
 
@@ -237,6 +269,11 @@ const styles = StyleSheet.create({
     color: '#212529',
     marginTop: 2,
   },
+  headerRight: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+  },
   notificationButton: {
     width: 44,
     height: 44,
@@ -244,6 +281,18 @@ const styles = StyleSheet.create({
     backgroundColor: '#F8F9FA',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  spinningLogo: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  logoImage: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
   },
   heroSection: {
     alignItems: 'center',
