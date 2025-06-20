@@ -10,6 +10,12 @@ import {
   Dimensions,
 } from 'react-native';
 import { router } from 'expo-router';
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withRepeat,
+  withTiming,
+} from 'react-native-reanimated';
 import { Sparkles, Target, Users, Zap, FileText, MessageCircle, Briefcase, TrendingUp, Award, ArrowRight, Play, CircleCheck as CheckCircle, Star, Globe, Shield, Clock } from 'lucide-react-native';
 
 const { width, height } = Dimensions.get('window');
@@ -69,6 +75,37 @@ const stats = [
 ];
 
 export default function MarketingHomepage() {
+  const rotation = useSharedValue(0);
+  const largeRotation = useSharedValue(0);
+
+  React.useEffect(() => {
+    // Small header logo rotation
+    rotation.value = withRepeat(
+      withTiming(360, { duration: 10000 }), // 10 seconds for one full rotation
+      -1, // infinite repeat
+      false
+    );
+
+    // Large hero logo rotation
+    largeRotation.value = withRepeat(
+      withTiming(360, { duration: 15000 }), // 15 seconds for one full rotation (slower)
+      -1, // infinite repeat
+      false
+    );
+  }, []);
+
+  const animatedStyle = useAnimatedStyle(() => {
+    return {
+      transform: [{ rotate: `${rotation.value}deg` }],
+    };
+  });
+
+  const largeAnimatedStyle = useAnimatedStyle(() => {
+    return {
+      transform: [{ rotate: `${largeRotation.value}deg` }],
+    };
+  });
+
   const handleGetStarted = () => {
     router.push('/(tabs)');
   };
@@ -94,6 +131,13 @@ export default function MarketingHomepage() {
               <TouchableOpacity style={styles.signupButton} onPress={handleGetStarted}>
                 <Text style={styles.signupButtonText}>Get Started</Text>
               </TouchableOpacity>
+              <Animated.View style={[styles.navSpinningLogo, animatedStyle]}>
+                <Image
+                  source={require('../assets/images/black_circle_360x360.png')}
+                  style={styles.navLogoImage}
+                  resizeMode="contain"
+                />
+              </Animated.View>
             </View>
           </View>
         </View>
@@ -129,6 +173,17 @@ export default function MarketingHomepage() {
                 <Text style={styles.companyName}>MediaGroup</Text>
               </View>
             </View>
+          </View>
+
+          {/* Large Spinning Logo */}
+          <View style={styles.heroLargeLogo}>
+            <Animated.View style={[styles.heroLargeSpinningLogo, largeAnimatedStyle]}>
+              <Image
+                source={require('../assets/images/black_circle_360x360.png')}
+                style={styles.heroLargeLogoImage}
+                resizeMode="contain"
+              />
+            </Animated.View>
           </View>
 
           <View style={styles.heroImageContainer}>
@@ -327,6 +382,7 @@ const styles = StyleSheet.create({
   },
   navButtons: {
     flexDirection: 'row',
+    alignItems: 'center',
     gap: 12,
   },
   loginButton: {
@@ -350,13 +406,27 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontWeight: '600',
   },
+  navSpinningLogo: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  navLogoImage: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+  },
   heroSection: {
     paddingHorizontal: 24,
     paddingVertical: 48,
+    position: 'relative',
   },
   heroContent: {
     alignItems: 'center',
     marginBottom: 32,
+    zIndex: 1,
   },
   heroTitle: {
     fontSize: 36,
@@ -439,6 +509,25 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#ADB5BD',
     fontWeight: '600',
+  },
+  heroLargeLogo: {
+    position: 'absolute',
+    top: 20,
+    right: -40,
+    zIndex: 0,
+  },
+  heroLargeSpinningLogo: {
+    width: 200,
+    height: 200,
+    borderRadius: 100,
+    justifyContent: 'center',
+    alignItems: 'center',
+    opacity: 0.12,
+  },
+  heroLargeLogoImage: {
+    width: 200,
+    height: 200,
+    borderRadius: 100,
   },
   heroImageContainer: {
     height: 300,
