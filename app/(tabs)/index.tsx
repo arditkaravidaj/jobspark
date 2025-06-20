@@ -70,10 +70,19 @@ const quickActions = [
 
 export default function DashboardScreen() {
   const rotation = useSharedValue(0);
+  const largeRotation = useSharedValue(0);
 
   React.useEffect(() => {
+    // Small header logo rotation
     rotation.value = withRepeat(
       withTiming(360, { duration: 10000 }), // 10 seconds for one full rotation
+      -1, // infinite repeat
+      false
+    );
+
+    // Large hero logo rotation
+    largeRotation.value = withRepeat(
+      withTiming(360, { duration: 15000 }), // 15 seconds for one full rotation (slower)
       -1, // infinite repeat
       false
     );
@@ -82,6 +91,12 @@ export default function DashboardScreen() {
   const animatedStyle = useAnimatedStyle(() => {
     return {
       transform: [{ rotate: `${rotation.value}deg` }],
+    };
+  });
+
+  const largeAnimatedStyle = useAnimatedStyle(() => {
+    return {
+      transform: [{ rotate: `${largeRotation.value}deg` }],
     };
   });
 
@@ -114,19 +129,32 @@ export default function DashboardScreen() {
           </View>
         </View>
 
-        {/* Hero Section */}
+        {/* Hero Section with Large Logo */}
         <View style={styles.heroSection}>
-          <View style={styles.logoContainer}>
-            <View style={styles.logoIcon}>
-              <Sparkles size={48} color="#007BFF" />
+          <View style={styles.heroContent}>
+            <View style={styles.logoContainer}>
+              <View style={styles.logoIcon}>
+                <Sparkles size={48} color="#007BFF" />
+              </View>
+              <Text style={styles.logoText}>JobSpark</Text>
             </View>
-            <Text style={styles.logoText}>JobSpark</Text>
+            
+            <Text style={styles.headline}>Land Your Dream Job</Text>
+            <Text style={styles.valueProposition}>
+              AI-powered career readiness platform designed to guide you through every step of your job application journey.
+            </Text>
           </View>
-          
-          <Text style={styles.headline}>Land Your Dream Job</Text>
-          <Text style={styles.valueProposition}>
-            AI-powered career readiness platform designed to guide you through every step of your job application journey.
-          </Text>
+
+          {/* Large Spinning Logo */}
+          <View style={styles.largeLogo}>
+            <Animated.View style={[styles.largeSpinningLogo, largeAnimatedStyle]}>
+              <Image
+                source={require('../../assets/images/black_circle_360x360.png')}
+                style={styles.largeLogoImage}
+                resizeMode="contain"
+              />
+            </Animated.View>
+          </View>
         </View>
 
         {/* Hero Image */}
@@ -295,10 +323,14 @@ const styles = StyleSheet.create({
     borderRadius: 22,
   },
   heroSection: {
-    alignItems: 'center',
     paddingTop: 32,
     paddingBottom: 24,
     paddingHorizontal: 24,
+    position: 'relative',
+  },
+  heroContent: {
+    alignItems: 'center',
+    zIndex: 1,
   },
   logoContainer: {
     alignItems: 'center',
@@ -339,6 +371,25 @@ const styles = StyleSheet.create({
     color: '#6C757D',
     lineHeight: 24,
     paddingHorizontal: 8,
+  },
+  largeLogo: {
+    position: 'absolute',
+    top: 20,
+    right: -40,
+    zIndex: 0,
+  },
+  largeSpinningLogo: {
+    width: 180,
+    height: 180,
+    borderRadius: 90,
+    justifyContent: 'center',
+    alignItems: 'center',
+    opacity: 0.15,
+  },
+  largeLogoImage: {
+    width: 180,
+    height: 180,
+    borderRadius: 90,
   },
   imageContainer: {
     height: 200,
