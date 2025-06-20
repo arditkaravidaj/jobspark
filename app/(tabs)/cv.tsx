@@ -9,7 +9,7 @@ import {
   Alert,
   Modal,
 } from 'react-native';
-import { FileText, Download, Share, Eye, Sparkles, CheckCircle, RefreshCw } from 'lucide-react-native';
+import { FileText, Download, Share, Eye, Sparkles, CircleCheck as CheckCircle, RefreshCw } from 'lucide-react-native';
 
 export default function CVBuilderScreen() {
   const [isGenerating, setIsGenerating] = useState(false);
