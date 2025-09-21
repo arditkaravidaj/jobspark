@@ -259,13 +259,6 @@ export default function DashboardScreen() {
               <TouchableOpacity style={styles.notificationButton}>
                 <Bell size={24} color="#212529" />
               </TouchableOpacity>
-              <Animated.View style={[styles.spinningLogo, animatedStyle]}>
-                <Image
-                  source={require('../../assets/images/black_circle_360x360.png')}
-                  style={styles.logoImage}
-                  resizeMode="contain"
-                />
-              </Animated.View>
             </View>
           </View>
         </View>
@@ -284,17 +277,6 @@ export default function DashboardScreen() {
             <Text style={styles.valueProposition}>
               AI-powered career readiness platform designed to guide you through every step of your job application journey.
             </Text>
-          </View>
-
-          {/* Large Spinning Logo */}
-          <View style={styles.largeLogo}>
-            <Animated.View style={[styles.largeSpinningLogo, largeAnimatedStyle]}>
-              <Image
-                source={require('../../assets/images/black_circle_360x360.png')}
-                style={styles.largeLogoImage}
-                resizeMode="contain"
-              />
-            </Animated.View>
           </View>
         </View>
 
@@ -451,18 +433,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  spinningLogo: {
-    width: 44,
-    height: 44,
-    borderRadius: 22,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  logoImage: {
-    width: 44,
-    height: 44,
-    borderRadius: 22,
-  },
   heroSection: {
     paddingTop: 32,
     paddingBottom: 24,
@@ -512,25 +482,6 @@ const styles = StyleSheet.create({
     color: '#6C757D',
     lineHeight: 24,
     paddingHorizontal: 8,
-  },
-  largeLogo: {
-    position: 'absolute',
-    top: 20,
-    right: -40,
-    zIndex: 0,
-  },
-  largeSpinningLogo: {
-    width: 180,
-    height: 180,
-    borderRadius: 90,
-    justifyContent: 'center',
-    alignItems: 'center',
-    opacity: 0.15,
-  },
-  largeLogoImage: {
-    width: 180,
-    height: 180,
-    borderRadius: 90,
   },
   imageContainer: {
     height: 200,
