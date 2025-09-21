@@ -1,49 +1,104 @@
 export const Colors = {
-  // Primary Brand Colors
-  primary: '#007BFF', // Spark Blue
-  primaryLight: '#66B2FF',
-  primaryDark: '#0056B3',
+  // Modern Brand Colors - Premium Gradient System
+  primary: '#6366F1', // Indigo - Professional & Trustworthy
+  primaryLight: '#818CF8',
+  primaryDark: '#4F46E5',
+  primaryGradient: 'linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%)',
   
-  // Base Colors
-  white: '#FFFFFF',
-  black: '#000000',
-  charcoal: '#212529',
+  secondary: '#06B6D4', // Cyan - Innovation & Growth
+  secondaryLight: '#67E8F9',
+  secondaryDark: '#0891B2',
+  secondaryGradient: 'linear-gradient(135deg, #06B6D4 0%, #3B82F6 100%)',
   
-  // Gray Scale
-  gray900: '#212529',
-  gray800: '#343A40',
-  gray700: '#495057',
-  gray600: '#6C757D',
-  gray500: '#ADB5BD',
-  gray400: '#CED4DA',
-  gray300: '#DEE2E6',
-  gray200: '#E9ECEF',
-  gray100: '#F8F9FA',
+  accent: '#F59E0B', // Amber - Success & Achievement
+  accentLight: '#FCD34D',
+  accentDark: '#D97706',
+  accentGradient: 'linear-gradient(135deg, #F59E0B 0%, #EF4444 100%)',
   
-  // Semantic Colors
-  success: '#28A745', // Success Green
-  successLight: '#D4EDDA',
-  warning: '#FFC107',
-  warningLight: '#FFF3CD',
-  error: '#DC3545', // Error Red
-  errorLight: '#F8D7DA',
+  // Neutral System - Modern Grays
+  neutral50: '#FAFAFA',
+  neutral100: '#F5F5F5',
+  neutral200: '#E5E5E5',
+  neutral300: '#D4D4D4',
+  neutral400: '#A3A3A3',
+  neutral500: '#737373',
+  neutral600: '#525252',
+  neutral700: '#404040',
+  neutral800: '#262626',
+  neutral900: '#171717',
   
-  // Background Colors
+  // Semantic Colors - Enhanced
+  success: '#10B981',
+  successLight: '#D1FAE5',
+  successDark: '#047857',
+  
+  warning: '#F59E0B',
+  warningLight: '#FEF3C7',
+  warningDark: '#D97706',
+  
+  error: '#EF4444',
+  errorLight: '#FEE2E2',
+  errorDark: '#DC2626',
+  
+  info: '#3B82F6',
+  infoLight: '#DBEAFE',
+  infoDark: '#1D4ED8',
+  
+  // Background System - Layered Design
   background: '#FFFFFF',
-  surface: '#F8F9FA',
+  backgroundSecondary: '#FAFAFA',
+  surface: '#FFFFFF',
   surfaceElevated: '#FFFFFF',
+  surfaceHover: '#F9FAFB',
   
-  // Text Colors
-  text: '#212529',
-  textSecondary: '#6C757D',
-  textLight: '#ADB5BD',
+  // Glass Morphism
+  glass: 'rgba(255, 255, 255, 0.25)',
+  glassStrong: 'rgba(255, 255, 255, 0.4)',
+  glassDark: 'rgba(0, 0, 0, 0.1)',
+  
+  // Text System - Improved Hierarchy
+  text: '#111827',
+  textSecondary: '#6B7280',
+  textTertiary: '#9CA3AF',
+  textLight: '#D1D5DB',
   textOnPrimary: '#FFFFFF',
+  textOnDark: '#FFFFFF',
   
-  // Border Colors
-  border: '#DEE2E6',
-  borderLight: '#E9ECEF',
+  // Border System
+  border: '#E5E7EB',
+  borderLight: '#F3F4F6',
+  borderStrong: '#D1D5DB',
+  borderFocus: '#6366F1',
   
-  // Special Colors
-  overlay: 'rgba(33, 37, 41, 0.5)',
+  // Shadow System
   shadow: 'rgba(0, 0, 0, 0.1)',
+  shadowMedium: 'rgba(0, 0, 0, 0.15)',
+  shadowStrong: 'rgba(0, 0, 0, 0.25)',
+  
+  // Overlay System
+  overlay: 'rgba(0, 0, 0, 0.5)',
+  overlayLight: 'rgba(0, 0, 0, 0.25)',
+  overlayStrong: 'rgba(0, 0, 0, 0.75)',
+  
+  // Status Colors
+  online: '#10B981',
+  offline: '#6B7280',
+  away: '#F59E0B',
+  busy: '#EF4444',
+  
+  // Job Status Colors
+  jobActive: '#10B981',
+  jobPending: '#F59E0B',
+  jobClosed: '#6B7280',
+  jobFeatured: '#8B5CF6',
+  
+  // Salary Range Colors
+  salaryLow: '#EF4444',
+  salaryMid: '#F59E0B',
+  salaryHigh: '#10B981',
+  
+  // Company Size Colors
+  startupColor: '#8B5CF6',
+  scaleupColor: '#06B6D4',
+  enterpriseColor: '#6366F1',
 } as const;

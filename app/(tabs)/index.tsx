@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -6,8 +6,9 @@ import {
   ScrollView,
   SafeAreaView,
   TouchableOpacity,
-  Image,
+  TextInput,
   Dimensions,
+  Platform,
 } from 'react-native';
 import { router } from 'expo-router';
 import Animated, {
@@ -16,22 +17,162 @@ import Animated, {
   withRepeat,
   withTiming,
   interpolate,
+  withSpring,
+  withDelay,
+  withSequence,
+  runOnJS,
 } from 'react-native-reanimated';
 import { 
-  Sparkles, 
-  Target, 
-  Users, 
-  Zap, 
-  FileText, 
-  MessageCircle, 
+  Search,
+  Filter,
+  MapPin,
   Briefcase,
   TrendingUp,
   Award,
   Bell,
-  ArrowRight
+  ArrowRight,
+  Building,
+  Clock,
+  DollarSign,
+  Star,
+  Heart,
+  Share2,
+  Eye,
+  Plus,
+  Zap,
+  Target,
+  Users,
+  Sparkles,
+  ChevronRight,
+  Calendar,
+  BookOpen,
+  MessageSquare,
+  Settings,
+  User,
+  FileText,
+  MessageCircle
 } from 'lucide-react-native';
+import { Colors } from '@/constants/Colors';
+import { Typography } from '@/constants/Typography';
+import { Spacing, BorderRadius, Shadows, Timing } from '@/constants/Spacing';
 
-const { width } = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
+
+const AnimatedTouchableOpacity = Animated.createAnimatedComponent(TouchableOpacity);
+
+// Mock data for featured jobs
+const featuredJobs = [
+  {
+    id: '1',
+    title: 'Senior React Developer',
+    company: 'TechFlow Solutions',
+    location: 'Cape Town, WC',
+    salary: 'R65,000 - R85,000',
+    type: 'Full-time',
+    posted: '2 days ago',
+    logo: '🚀',
+    featured: true,
+    matchScore: 95,
+    skills: ['React', 'TypeScript', 'Node.js'],
+    applicants: 23,
+  },
+  {
+    id: '2',
+    title: 'UX/UI Designer',
+    company: 'Creative Studio',
+    location: 'Johannesburg, GP',
+    salary: 'R45,000 - R60,000',
+    type: 'Full-time',
+    posted: '1 day ago',
+    logo: '🎨',
+    featured: true,
+    matchScore: 88,
+    skills: ['Figma', 'Adobe XD', 'Prototyping'],
+    applicants: 15,
+  },
+  {
+    id: '3',
+    title: 'Data Scientist',
+    company: 'Analytics Pro',
+    location: 'Remote',
+    salary: 'R70,000 - R95,000',
+    type: 'Full-time',
+    posted: '3 days ago',
+    logo: '📊',
+    featured: false,
+    matchScore: 82,
+    skills: ['Python', 'Machine Learning', 'SQL'],
+    applicants: 31,
+  },
+];
+
+// Mock data for quick stats
+const quickStats = [
+  { label: 'Active Jobs', value: '2,847', change: '+12%', trend: 'up' },
+  { label: 'New This Week', value: '156', change: '+8%', trend: 'up' },
+  { label: 'Your Applications', value: '7', change: '2 pending', trend: 'neutral' },
+  { label: 'Profile Views', value: '43', change: '+15%', trend: 'up' },
+];
+
+// Mock data for recommended actions
+const recommendedActions = [
+  {
+    id: '1',
+    title: 'Complete Your Profile',
+    description: 'Add your skills and experience to get better job matches',
+    progress: 75,
+    action: 'Complete Now',
+    icon: User,
+    color: Colors.primary,
+  },
+  {
+    id: '2',
+    title: 'Practice Interview Skills',
+    description: 'Improve your interview performance with AI coaching',
+    progress: 0,
+    action: 'Start Practice',
+    icon: MessageSquare,
+    color: Colors.secondary,
+  },
+  {
+    id: '3',
+    title: 'Update Your CV',
+    description: 'Generate a professional CV with our AI assistant',
+    progress: 100,
+    action: 'View CV',
+    icon: FileText,
+    color: Colors.accent,
+  },
+];
+
+const AnimatedCard = ({ children, delay = 0, style = {} }: any) => {
+  const scale = useSharedValue(0.95);
+  const opacity = useSharedValue(0);
+  const translateY = useSharedValue(20);
+
+  useEffect(() => {
+    const animate = () => {
+      scale.value = withDelay(delay, withSpring(1, Timing.spring));
+      opacity.value = withDelay(delay, withTiming(1, { duration: Timing.normal }));
+      translateY.value = withDelay(delay, withSpring(0, Timing.spring));
+    };
+    animate();
+  }, [delay]);
+
+  const animatedStyle = useAnimatedStyle(() => ({
+    transform: [
+      { scale: scale.value },
+      { translateY: translateY.value },
+    ],
+    opacity: opacity.value,
+  }));
+
+  return (
+    <Animated.View style={[animatedStyle, style]}>
+      {children}
+    </Animated.View>
+  );
+};
 
 const quickActions = [
   {

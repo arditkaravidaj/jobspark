@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -7,38 +7,334 @@ import {
   SafeAreaView,
   TouchableOpacity,
   TextInput,
+  Dimensions,
+  Platform,
 } from 'react-native';
-import { Briefcase, Search, Filter, MapPin, Clock, DollarSign, Building } from 'lucide-react-native';
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withSpring,
+  withTiming,
+  withDelay,
+  interpolate,
+  runOnJS,
+} from 'react-native-reanimated';
+import { 
+  Briefcase, 
+  Search, 
+  Filter, 
+  MapPin, 
+  Clock, 
+  DollarSign, 
+  Building,
+  Star,
+  Heart,
+  Share2,
+  Eye,
+  ChevronRight,
+  Bookmark,
+  TrendingUp,
+  Award,
+  Users,
+  Calendar,
+  ArrowRight,
+  Zap,
+  Target,
+  Plus,
+  Settings,
+  SlidersHorizontal
+} from 'lucide-react-native';
+import { Colors } from '@/constants/Colors';
+import { Typography } from '@/constants/Typography';
+import { Spacing, BorderRadius, Shadows, Timing } from '@/constants/Spacing';
 
+const { width, height } = Dimensions.get('window');
+
+const AnimatedTouchableOpacity = Animated.createAnimatedComponent(TouchableOpacity);
+
+// Enhanced mock jobs data
 const mockJobs = [
   {
     id: '1',
-    title: 'Senior Software Developer',
-    company: 'TechCorp SA',
+    title: 'Senior Software Engineer',
+    company: 'TechFlow Solutions',
     location: 'Cape Town, Western Cape',
-    type: 'full-time',
-    salary: 'R600,000 - R800,000/year',
-    matchScore: 92,
+    type: 'Full-time',
+    salary: 'R75,000 - R95,000',
+    salaryPeriod: 'month',
+    matchScore: 95,
+    posted: '2 days ago',
+    applicants: 23,
+    logo: '🚀',
+    featured: true,
+    remote: false,
+    urgent: false,
+    skills: ['React', 'TypeScript', 'Node.js', 'AWS'],
+    experience: 'Senior Level',
+    companySize: '50-200 employees',
+    industry: 'Technology',
+    benefits: ['Health Insurance', 'Remote Work', 'Learning Budget'],
+    description: 'Join our innovative team building next-generation web applications...',
+    requirements: ['5+ years React experience', 'TypeScript proficiency', 'AWS knowledge'],
+    saved: false,
+    applied: false,
   },
   {
     id: '2',
-    title: 'Frontend Developer',
-    company: 'Digital Agency',
+    title: 'UX/UI Designer',
+    company: 'Creative Studio Pro',
     location: 'Johannesburg, Gauteng',
-    type: 'full-time',
-    salary: 'R400,000 - R550,000/year',
-    matchScore: 85,
+    type: 'Full-time',
+    salary: 'R45,000 - R65,000',
+    salaryPeriod: 'month',
+    matchScore: 88,
+    posted: '1 day ago',
+    applicants: 15,
+    logo: '🎨',
+    featured: true,
+    remote: true,
+    urgent: false,
+    skills: ['Figma', 'Adobe XD', 'Prototyping', 'User Research'],
+    experience: 'Mid Level',
+    companySize: '10-50 employees',
+    industry: 'Design',
+    benefits: ['Flexible Hours', 'Creative Freedom', 'Equipment Allowance'],
+    description: 'Design beautiful and intuitive user experiences for our clients...',
+    requirements: ['3+ years UX/UI experience', 'Figma expertise', 'Portfolio required'],
+    saved: true,
+    applied: false,
   },
   {
     id: '3',
-    title: 'Junior Full Stack Developer',
-    company: 'StartupCo',
+    title: 'Data Scientist',
+    company: 'Analytics Insights',
+    location: 'Remote',
+    type: 'Full-time',
+    salary: 'R65,000 - R85,000',
+    salaryPeriod: 'month',
+    matchScore: 82,
+    posted: '3 days ago',
+    applicants: 31,
+    logo: '📊',
+    featured: false,
+    remote: true,
+    urgent: true,
+    skills: ['Python', 'Machine Learning', 'SQL', 'TensorFlow'],
+    experience: 'Senior Level',
+    companySize: '200+ employees',
+    industry: 'Analytics',
+    benefits: ['Stock Options', 'Learning Budget', 'Conference Attendance'],
+    description: 'Lead data science initiatives and build predictive models...',
+    requirements: ['PhD or Masters in Data Science', 'Python expertise', 'ML experience'],
+    saved: false,
+    applied: true,
+  },
+  {
+    id: '4',
+    title: 'Product Manager',
+    company: 'Innovation Labs',
     location: 'Durban, KwaZulu-Natal',
-    type: 'full-time',
-    salary: 'R300,000 - R400,000/year',
-    matchScore: 78,
+    type: 'Full-time',
+    salary: 'R55,000 - R75,000',
+    salaryPeriod: 'month',
+    matchScore: 76,
+    posted: '5 days ago',
+    applicants: 18,
+    logo: '💡',
+    featured: false,
+    remote: false,
+    urgent: false,
+    skills: ['Product Strategy', 'Agile', 'Analytics', 'Leadership'],
+    experience: 'Mid Level',
+    companySize: '50-200 employees',
+    industry: 'Product',
+    benefits: ['Performance Bonus', 'Team Events', 'Growth Opportunities'],
+    description: 'Drive product strategy and work with cross-functional teams...',
+    requirements: ['3+ years product management', 'Agile experience', 'Leadership skills'],
+    saved: false,
+    applied: false,
   },
 ];
+
+// Job filters
+const jobFilters = [
+  { id: 'all', label: 'All Jobs', count: mockJobs.length },
+  { id: 'featured', label: 'Featured', count: mockJobs.filter(j => j.featured).length },
+  { id: 'remote', label: 'Remote', count: mockJobs.filter(j => j.remote).length },
+  { id: 'urgent', label: 'Urgent', count: mockJobs.filter(j => j.urgent).length },
+  { id: 'saved', label: 'Saved', count: mockJobs.filter(j => j.saved).length },
+];
+
+const AnimatedJobCard = ({ job, index, onSave, onApply }: any) => {
+  const scale = useSharedValue(0.95);
+  const opacity = useSharedValue(0);
+  const translateY = useSharedValue(30);
+
+  useEffect(() => {
+    const delay = index * 100;
+    scale.value = withDelay(delay, withSpring(1, Timing.spring));
+    opacity.value = withDelay(delay, withTiming(1, { duration: Timing.normal }));
+    translateY.value = withDelay(delay, withSpring(0, Timing.spring));
+  }, [index]);
+
+  const animatedStyle = useAnimatedStyle(() => ({
+    transform: [
+      { scale: scale.value },
+      { translateY: translateY.value },
+    ],
+    opacity: opacity.value,
+  }));
+
+  const getMatchScoreColor = (score: number) => {
+    if (score >= 90) return Colors.success;
+    if (score >= 80) return Colors.accent;
+    if (score >= 70) return Colors.warning;
+    return Colors.textTertiary;
+  };
+
+  const getSalaryColor = (salary: string) => {
+    const amount = parseInt(salary.replace(/[^\d]/g, ''));
+    if (amount >= 70000) return Colors.salaryHigh;
+    if (amount >= 50000) return Colors.salaryMid;
+    return Colors.salaryLow;
+  };
+
+  return (
+    <Animated.View style={[styles.jobCard, animatedStyle]}>
+      <TouchableOpacity activeOpacity={0.95}>
+        {/* Job Header */}
+        <View style={styles.jobHeader}>
+          <View style={styles.jobHeaderLeft}>
+            <View style={[
+              styles.companyLogo,
+              job.featured && styles.featuredLogo
+            ]}>
+              <Text style={styles.logoEmoji}>{job.logo}</Text>
+              {job.featured && (
+                <View style={styles.featuredBadge}>
+                  <Star size={10} color={Colors.accent} fill={Colors.accent} />
+                </View>
+              )}
+            </View>
+            
+            <View style={styles.jobBasicInfo}>
+              <View style={styles.jobTitleRow}>
+                <Text style={styles.jobTitle} numberOfLines={1}>{job.title}</Text>
+                {job.urgent && (
+                  <View style={styles.urgentBadge}>
+                    <Zap size={12} color={Colors.white} />
+                    <Text style={styles.urgentText}>URGENT</Text>
+                  </View>
+                )}
+              </View>
+              
+              <Text style={styles.companyName}>{job.company}</Text>
+              
+              <View style={styles.jobMeta}>
+                <View style={styles.metaItem}>
+                  <MapPin size={14} color={Colors.textTertiary} />
+                  <Text style={styles.metaText}>{job.location}</Text>
+                </View>
+                <View style={styles.metaItem}>
+                  <Clock size={14} color={Colors.textTertiary} />
+                  <Text style={styles.metaText}>{job.posted}</Text>
+                </View>
+                {job.remote && (
+                  <View style={styles.remoteBadge}>
+                    <Text style={styles.remoteText}>Remote</Text>
+                  </View>
+                )}
+              </View>
+            </View>
+          </View>
+          
+          <TouchableOpacity 
+            style={[styles.saveButton, job.saved && styles.saveButtonActive]}
+            onPress={() => onSave(job.id)}
+          >
+            <Heart 
+              size={20} 
+              color={job.saved ? Colors.error : Colors.textTertiary}
+              fill={job.saved ? Colors.error : 'transparent'}
+            />
+          </TouchableOpacity>
+        </View>
+
+        {/* Job Details */}
+        <View style={styles.jobDetails}>
+          <View style={styles.salarySection}>
+            <DollarSign size={16} color={getSalaryColor(job.salary)} />
+            <Text style={[styles.salaryText, { color: getSalaryColor(job.salary) }]}>
+              {job.salary}/{job.salaryPeriod}
+            </Text>
+          </View>
+          
+          <View style={styles.matchSection}>
+            <View style={[
+              styles.matchScore,
+              { backgroundColor: `${getMatchScoreColor(job.matchScore)}20` }
+            ]}>
+              <Target size={14} color={getMatchScoreColor(job.matchScore)} />
+              <Text style={[styles.matchText, { color: getMatchScoreColor(job.matchScore) }]}>
+                {job.matchScore}% match
+              </Text>
+            </View>
+          </View>
+        </View>
+
+        {/* Skills */}
+        <View style={styles.skillsSection}>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            <View style={styles.skillsList}>
+              {job.skills.slice(0, 4).map((skill: string, index: number) => (
+                <View key={index} style={styles.skillTag}>
+                  <Text style={styles.skillText}>{skill}</Text>
+                </View>
+              ))}
+              {job.skills.length > 4 && (
+                <View style={styles.moreSkills}>
+                  <Text style={styles.moreSkillsText}>+{job.skills.length - 4}</Text>
+                </View>
+              )}
+            </View>
+          </ScrollView>
+        </View>
+
+        {/* Job Footer */}
+        <View style={styles.jobFooter}>
+          <View style={styles.applicantsInfo}>
+            <Users size={14} color={Colors.textTertiary} />
+            <Text style={styles.applicantsText}>{job.applicants} applicants</Text>
+          </View>
+          
+          <View style={styles.jobActions}>
+            <TouchableOpacity style={styles.viewButton}>
+              <Eye size={16} color={Colors.primary} />
+              <Text style={styles.viewButtonText}>View</Text>
+            </TouchableOpacity>
+            
+            <TouchableOpacity 
+              style={[
+                styles.applyButton,
+                job.applied && styles.appliedButton
+              ]}
+              onPress={() => onApply(job.id)}
+              disabled={job.applied}
+            >
+              <Text style={[
+                styles.applyButtonText,
+                job.applied && styles.appliedButtonText
+              ]}>
+                {job.applied ? 'Applied' : 'Apply'}
+              </Text>
+              {!job.applied && <ArrowRight size={16} color={Colors.white} />}
+            </TouchableOpacity>
+          </View>
+        </View>
+      </TouchableOpacity>
+    </Animated.View>
+  );
+};
 
 export default function JobsScreen() {
   return (

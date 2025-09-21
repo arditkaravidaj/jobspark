@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   Dimensions,
   Platform,
+  ImageBackground,
 } from 'react-native';
 import { router } from 'expo-router';
 import Animated, {
@@ -18,33 +19,50 @@ import Animated, {
   interpolate,
   withSequence,
   withDelay,
+  withSpring,
+  runOnJS,
 } from 'react-native-reanimated';
-import { Sparkles, Target, Users, Zap, ArrowRight, Play, Star, CircleCheck as CheckCircle, Globe, Shield, Clock, Menu, X } from 'lucide-react-native';
+import { 
+  Sparkles, 
+  Target, 
+  Users, 
+  Zap, 
+  ArrowRight, 
+  Play, 
+  Star, 
+  CircleCheck as CheckCircle, 
+  Globe, 
+  Shield, 
+  Clock, 
+  Menu, 
+  X,
+  Briefcase,
+  TrendingUp,
+  Award,
+  Search,
+  Filter,
+  MapPin,
+  Building,
+  Calendar,
+  DollarSign,
+  Eye,
+  Heart,
+  Share2,
+  MessageSquare,
+  ChevronRight,
+  Plus,
+  Bell,
+  Settings,
+  User,
+  LogOut
+} from 'lucide-react-native';
+import { Colors } from '@/constants/Colors';
+import { Typography } from '@/constants/Typography';
+import { Spacing, BorderRadius, Shadows, Timing } from '@/constants/Spacing';
 
 const { width, height } = Dimensions.get('window');
 
 const AnimatedTouchableOpacity = Animated.createAnimatedComponent(TouchableOpacity);
-
-// Color Palette - Sophisticated gradient-based theme
-const colors = {
-  primary: '#6366F1', // Indigo
-  primaryLight: '#818CF8',
-  primaryDark: '#4F46E5',
-  secondary: '#EC4899', // Pink
-  secondaryLight: '#F472B6',
-  accent: '#06B6D4', // Cyan
-  accentLight: '#67E8F9',
-  background: '#0F172A', // Slate 900
-  surface: '#1E293B', // Slate 800
-  surfaceLight: '#334155', // Slate 700
-  text: '#F8FAFC', // Slate 50
-  textSecondary: '#CBD5E1', // Slate 300
-  textMuted: '#64748B', // Slate 500
-  success: '#10B981',
-  warning: '#F59E0B',
-  white: '#FFFFFF',
-  black: '#000000',
-};
 
 const testimonials = [
   {
