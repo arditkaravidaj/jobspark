@@ -19,21 +19,7 @@ import Animated, {
   withSequence,
   withDelay,
 } from 'react-native-reanimated';
-import { 
-  Sparkles, 
-  Target, 
-  Users, 
-  Zap, 
-  ArrowRight,
-  Play,
-  Star,
-  CheckCircle,
-  Globe,
-  Shield,
-  Clock,
-  Menu,
-  X
-} from 'lucide-react-native';
+import { Sparkles, Target, Users, Zap, ArrowRight, Play, Star, CircleCheck as CheckCircle, Globe, Shield, Clock, Menu, X } from 'lucide-react-native';
 
 const { width, height } = Dimensions.get('window');
 
