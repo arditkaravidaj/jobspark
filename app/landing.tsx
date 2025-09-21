@@ -428,7 +428,7 @@ export default function LandingPage() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.background,
+    backgroundColor: Colors.background,
   },
   backgroundContainer: {
     position: 'absolute',
@@ -446,21 +446,21 @@ const styles = StyleSheet.create({
   gradientOrb1: {
     width: 400,
     height: 400,
-    backgroundColor: colors.primary,
+    backgroundColor: Colors.primary,
     top: -200,
     right: -200,
   },
   gradientOrb2: {
     width: 300,
     height: 300,
-    backgroundColor: colors.secondary,
+    backgroundColor: Colors.secondary,
     bottom: -150,
     left: -150,
   },
   gradientOrb3: {
     width: 250,
     height: 250,
-    backgroundColor: colors.accent,
+    backgroundColor: Colors.accent,
     top: '50%',
     left: '50%',
     marginTop: -125,
@@ -473,8 +473,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     paddingVertical: 16,
     borderBottomWidth: 1,
-    borderBottomColor: colors.surfaceLight,
-    backgroundColor: `${colors.background}95`,
+    borderBottomColor: Colors.border,
+    backgroundColor: `${Colors.background}95`,
     backdropFilter: 'blur(10px)',
   },
   navContent: {
@@ -490,7 +490,7 @@ const styles = StyleSheet.create({
   logoText: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: colors.text,
+    color: Colors.text,
   },
   navLinks: {
     flexDirection: 'row',
@@ -503,7 +503,7 @@ const styles = StyleSheet.create({
   },
   navLinkText: {
     fontSize: 16,
-    color: colors.textSecondary,
+    color: Colors.textSecondary,
     fontWeight: '500',
   },
   loginButton: {
@@ -513,18 +513,18 @@ const styles = StyleSheet.create({
   },
   loginButtonText: {
     fontSize: 16,
-    color: colors.text,
+    color: Colors.text,
     fontWeight: '600',
   },
   signupButton: {
     paddingHorizontal: 20,
     paddingVertical: 10,
-    backgroundColor: colors.primary,
+    backgroundColor: Colors.primary,
     borderRadius: 8,
   },
   signupButtonText: {
     fontSize: 16,
-    color: colors.white,
+    color: Colors.white,
     fontWeight: '600',
   },
   mobileMenuButton: {
@@ -535,7 +535,7 @@ const styles = StyleSheet.create({
     marginTop: 16,
     paddingTop: 16,
     borderTopWidth: 1,
-    borderTopColor: colors.surfaceLight,
+    borderTopColor: Colors.border,
     gap: 16,
   },
   mobileNavLink: {
@@ -543,11 +543,11 @@ const styles = StyleSheet.create({
   },
   mobileNavLinkText: {
     fontSize: 16,
-    color: colors.textSecondary,
+    color: Colors.textSecondary,
     fontWeight: '500',
   },
   mobileSignupButton: {
-    backgroundColor: colors.primary,
+    backgroundColor: Colors.primary,
     paddingVertical: 12,
     paddingHorizontal: 20,
     borderRadius: 8,
@@ -566,7 +566,7 @@ const styles = StyleSheet.create({
   heroBadge: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: `${colors.primary}20`,
+    backgroundColor: `${Colors.primary}20`,
     paddingHorizontal: 16,
     paddingVertical: 8,
     borderRadius: 20,
@@ -575,24 +575,24 @@ const styles = StyleSheet.create({
   },
   heroBadgeText: {
     fontSize: 14,
-    color: colors.primary,
+    color: Colors.primary,
     fontWeight: '600',
   },
   heroTitle: {
     fontSize: 48,
     fontWeight: 'bold',
     textAlign: 'center',
-    color: colors.text,
+    color: Colors.text,
     marginBottom: 24,
     lineHeight: 56,
   },
   heroTitleGradient: {
-    color: colors.primary,
+    color: Colors.primary,
   },
   heroSubtitle: {
     fontSize: 20,
     textAlign: 'center',
-    color: colors.textSecondary,
+    color: Colors.textSecondary,
     lineHeight: 30,
     marginBottom: 40,
     paddingHorizontal: 16,
@@ -607,12 +607,12 @@ const styles = StyleSheet.create({
   primaryCTA: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: colors.primary,
+    backgroundColor: Colors.primary,
     paddingHorizontal: 32,
     paddingVertical: 16,
     borderRadius: 12,
     gap: 8,
-    shadowColor: colors.primary,
+    shadowColor: Colors.primary,
     shadowOffset: { width: 0, height: 8 },
     shadowOpacity: 0.3,
     shadowRadius: 16,
@@ -620,7 +620,7 @@ const styles = StyleSheet.create({
   },
   primaryCTAText: {
     fontSize: 18,
-    color: colors.white,
+    color: Colors.white,
     fontWeight: '600',
   },
   secondaryCTA: {
@@ -630,13 +630,13 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
     borderRadius: 12,
     borderWidth: 2,
-    borderColor: colors.primary,
+    borderColor: Colors.primary,
     backgroundColor: 'transparent',
     gap: 8,
   },
   secondaryCTAText: {
     fontSize: 18,
-    color: colors.primary,
+    color: Colors.primary,
     fontWeight: '600',
   },
   trustIndicators: {
@@ -644,7 +644,7 @@ const styles = StyleSheet.create({
   },
   trustText: {
     fontSize: 14,
-    color: colors.textMuted,
+    color: Colors.textMuted,
     marginBottom: 16,
   },
   companyLogos: {
@@ -655,13 +655,13 @@ const styles = StyleSheet.create({
   },
   companyName: {
     fontSize: 16,
-    color: colors.textMuted,
+    color: Colors.textMuted,
     fontWeight: '600',
   },
   statsSection: {
     paddingVertical: 60,
     paddingHorizontal: 24,
-    backgroundColor: colors.surface,
+    backgroundColor: Colors.surface,
   },
   statsGrid: {
     flexDirection: 'row',
@@ -676,12 +676,12 @@ const styles = StyleSheet.create({
   statValue: {
     fontSize: 36,
     fontWeight: 'bold',
-    color: colors.primary,
+    color: Colors.primary,
     marginBottom: 8,
   },
   statLabel: {
     fontSize: 14,
-    color: colors.textSecondary,
+    color: Colors.textSecondary,
     textAlign: 'center',
   },
   featuresSection: {
@@ -696,13 +696,13 @@ const styles = StyleSheet.create({
     fontSize: 36,
     fontWeight: 'bold',
     textAlign: 'center',
-    color: colors.text,
+    color: Colors.text,
     marginBottom: 16,
   },
   sectionSubtitle: {
     fontSize: 18,
     textAlign: 'center',
-    color: colors.textSecondary,
+    color: Colors.textSecondary,
     lineHeight: 28,
     paddingHorizontal: 16,
     maxWidth: 600,
@@ -715,12 +715,12 @@ const styles = StyleSheet.create({
   },
   featureCard: {
     width: width > 768 ? '48%' : '100%',
-    backgroundColor: colors.surface,
+    backgroundColor: Colors.surface,
     padding: 32,
     borderRadius: 16,
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: colors.surfaceLight,
+    borderColor: Colors.border,
   },
   featureIcon: {
     width: 80,
@@ -735,18 +735,18 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     textAlign: 'center',
     marginBottom: 16,
-    color: colors.text,
+    color: Colors.text,
   },
   featureDescription: {
     fontSize: 16,
     textAlign: 'center',
-    color: colors.textSecondary,
+    color: Colors.textSecondary,
     lineHeight: 24,
   },
   testimonialsSection: {
     paddingVertical: 80,
     paddingHorizontal: 24,
-    backgroundColor: colors.surface,
+    backgroundColor: Colors.surface,
     alignItems: 'center',
   },
   testimonialsScroll: {
@@ -757,12 +757,12 @@ const styles = StyleSheet.create({
   },
   testimonialCard: {
     width: 320,
-    backgroundColor: colors.background,
+    backgroundColor: Colors.background,
     padding: 32,
     borderRadius: 16,
     marginRight: 24,
     borderWidth: 1,
-    borderColor: colors.surfaceLight,
+    borderColor: Colors.border,
   },
   testimonialHeader: {
     flexDirection: 'row',
@@ -779,25 +779,25 @@ const styles = StyleSheet.create({
   },
   testimonialQuote: {
     fontSize: 16,
-    color: colors.text,
+    color: Colors.text,
     lineHeight: 24,
     marginBottom: 20,
     fontStyle: 'italic',
   },
   testimonialAuthor: {
     borderTopWidth: 1,
-    borderTopColor: colors.surfaceLight,
+    borderTopColor: Colors.border,
     paddingTop: 20,
   },
   testimonialName: {
     fontSize: 16,
     fontWeight: '600',
-    color: colors.text,
+    color: Colors.text,
     marginBottom: 4,
   },
   testimonialRole: {
     fontSize: 14,
-    color: colors.textSecondary,
+    color: Colors.textSecondary,
   },
   ctaSection: {
     paddingVertical: 80,
@@ -812,13 +812,13 @@ const styles = StyleSheet.create({
     fontSize: 36,
     fontWeight: 'bold',
     textAlign: 'center',
-    color: colors.text,
+    color: Colors.text,
     marginBottom: 16,
   },
   ctaSubtitle: {
     fontSize: 18,
     textAlign: 'center',
-    color: colors.textSecondary,
+    color: Colors.textSecondary,
     lineHeight: 28,
     marginBottom: 40,
     paddingHorizontal: 16,
@@ -826,13 +826,13 @@ const styles = StyleSheet.create({
   ctaButton: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: colors.primary,
+    backgroundColor: Colors.primary,
     paddingHorizontal: 40,
     paddingVertical: 20,
     borderRadius: 12,
     gap: 8,
     marginBottom: 16,
-    shadowColor: colors.primary,
+    shadowColor: Colors.primary,
     shadowOffset: { width: 0, height: 8 },
     shadowOpacity: 0.3,
     shadowRadius: 16,
@@ -840,15 +840,15 @@ const styles = StyleSheet.create({
   },
   ctaButtonText: {
     fontSize: 18,
-    color: colors.white,
+    color: Colors.white,
     fontWeight: '600',
   },
   ctaNote: {
     fontSize: 14,
-    color: colors.textMuted,
+    color: Colors.textMuted,
   },
   footer: {
-    backgroundColor: colors.surface,
+    backgroundColor: Colors.surface,
     paddingVertical: 60,
     paddingHorizontal: 24,
   },
@@ -864,12 +864,12 @@ const styles = StyleSheet.create({
   footerLogoText: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: colors.text,
+    color: Colors.text,
   },
   footerDescription: {
     fontSize: 16,
     textAlign: 'center',
-    color: colors.textSecondary,
+    color: Colors.textSecondary,
     lineHeight: 24,
     marginBottom: 32,
     paddingHorizontal: 16,
@@ -888,7 +888,7 @@ const styles = StyleSheet.create({
   },
   footerFeatureText: {
     fontSize: 14,
-    color: colors.success,
+    color: Colors.success,
     fontWeight: '600',
   },
 });
